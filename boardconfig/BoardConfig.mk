@@ -290,11 +290,11 @@ else ifneq ($(filter $(TARGET_PRODUCT),cm_t0lte cm_t0lteatt cm_t0ltetmo cm_l900 
     BOARD_USE_B_SLOT_PROTOCOL := true
 
 #Galaxy Note 3 LTE - N9005 (hltexx, hltespr, hltetmo, hltecan, hltevzw)
-else ifneq ($(filter $(TARGET_PRODUCT),cm_hltexx cm_hltespr cm_hltetmo cm_hltecan cm_hltevzw),)
+else ifneq ($(filter $(TARGET_PRODUCT),cm_hltexx cm_hltespr cm_hltetmo cm_hltecan cm_hltevzw cm_hlte),)
     TARGET_COMMON_NAME := Note 3 ($(TARGET_PRODUCT))
     BOOTLOADER_CMD_ARG := "download"
     KERNEL_EXFAT_MODULE_NAME := "exfat"
-    KERNEL_NTFS_MODULE_NAME := "ntfs"
+    #KERNEL_NTFS_MODULE_NAME := "ntfs"
     TARGET_SCREEN_HEIGHT := 1920
     TARGET_SCREEN_WIDTH := 1080
     BRIGHTNESS_SYS_FILE := "/sys/class/leds/lcd-backlight/brightness"

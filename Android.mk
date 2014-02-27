@@ -26,6 +26,11 @@ include $(commands_recovery_local_path)/boardconfig/BoardConfig.mk
 
 # LOCAL_CPP_EXTENSION := .c
 
+ifeq ($(findstring fontcn,$(BOARD_USE_CUSTOM_RECOVERY_FONT)),fontcn)
+  LOCAL_CFLAGS += -DUSE_CHINESE_FONT
+  src_suffix := _cn
+endif
+
 LOCAL_SRC_FILES := \
     recovery.c \
     bootloader.c \

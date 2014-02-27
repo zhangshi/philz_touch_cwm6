@@ -763,8 +763,20 @@ void ui_print(const char *fmt, ...)
     gettimeofday(&lastupdate, NULL);
     if (text_rows > 0 && text_cols > 0) {
         char *ptr;
+#ifdef USE_CHINESE_FONT
+        int fwidth = 0, fwidth_sum = 0;
+#endif
         for (ptr = buf; *ptr != '\0'; ++ptr) {
+#ifdef USE_CHINESE_FONT
+            fwidth = gr_measure(&*ptr);
+            //LOGI("%d \n", fwidth);
+            fwidth_sum += fwidth;
+
+            if (*ptr == '\n' || fwidth_sum >= gr_fb_width()) {
+                fwidth_sum = 0;
+#else
             if (*ptr == '\n' || text_col >= text_cols) {
+#endif
                 text[text_row][text_col] = '\0';
                 text_col = 0;
                 text_row = (text_row + 1) % text_rows;
@@ -815,8 +827,12 @@ int ui_start_menu(const char** headers, char** items, int initial_selection) {
             if (i == 0)
                 offset = ui_menu_header_offset();
 #endif
+#ifdef USE_CHINESE_FONT
+            strncpy(menu[i], headers[i], sizeof(menu[i]));
+#else
             strncpy(menu[i], headers[i], text_cols - offset);
             menu[i][text_cols - offset] = '\0';
+#endif
         }
 
         menu_top = i;
@@ -828,7 +844,11 @@ int ui_start_menu(const char** headers, char** items, int initial_selection) {
         }
 
         if (gShowBackButton && !ui_root_menu) {
-            strcpy(menu[i], " - +++++Go Back+++++");
+#ifdef USE_CHINESE_FONT
+            strcpy(menu[i], " < 返回");
+#else
+            strcpy(menu[i], " < Go Back");
+#endif
             ++i;
         }
 

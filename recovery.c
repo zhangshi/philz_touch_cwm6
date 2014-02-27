@@ -935,9 +935,9 @@ setup_adbd() {
             check_and_fclose(file_src, key_src);
         }
     }
-    ignore_data_media_workaround(1);
-    ensure_path_unmounted("/data");
-    ignore_data_media_workaround(0);
+    //ignore_data_media_workaround(1);
+    //ensure_path_unmounted("/data");
+    //ignore_data_media_workaround(0);
 
     // Trigger (re)start of adb daemon
     property_set("service.adb.root", "1");
